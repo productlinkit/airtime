@@ -57,6 +57,7 @@ const STRINGS = {
     failTitle: "Payment didn't go through",
     failRetry: "Try again", failHelp: "Chat on WhatsApp",
     failText: "We couldn't complete this payment. Try again. If you were charged, chat with us on WhatsApp and we'll refund it.",
+    chooseCard: "Choose a card", showCard: n => `Show ${n}`,
     getsCredit: v => `${v} credit`, feeIncl: "Included in total", countryName: {}, ccGo: "Top up", ccAria: c => `Top up a number in ${c}`,
     recentRemove: n => `Remove ${n}`, recentGo: (op, n) => `Top up ${op} ${n} again`,
     orderRef: r => `Order ${r}`, trackPaid: "Payment received", trackSending: "Sending to operator", trackDone: "Delivered", trackFailed: "Delivery failed",
@@ -128,6 +129,7 @@ const STRINGS = {
     okTitle: "Isi ulang sedang dikirim", okText: (name, phone) => `${name} sedang dikirim ke ${phone}. Biasanya masuk dalam beberapa menit.`,
     okDone: "Selesai", okAgain: "Isi nomor lain",
     failTitle: "Pembayaran belum berhasil", failText: "Pembayaran ini belum bisa diselesaikan. Coba lagi. Kalau saldo Anda sudah terpotong, chat kami di WhatsApp dan dananya akan kami kembalikan.",
+    chooseCard: "Pilih kartu", showCard: n => `Tampilkan ${n}`,
     rvGets: "Diterima", rvFee: "Biaya admin", getsCredit: v => `Pulsa ${v}`, feeIncl: "Sudah termasuk di total",
     recentTitle: "Isi ulang lagi", recentNote: "Hanya tersimpan di perangkat ini.", recentRemove: n => `Hapus ${n}`, recentGo: (op, n) => `Isi ulang ${op} ${n} lagi`,
     orderRef: r => `Pesanan ${r}`, trackPaid: "Pembayaran diterima", trackSending: "Dikirim ke operator", trackDone: "Terkirim", trackFailed: "Gagal terkirim",
@@ -234,7 +236,7 @@ function applyLang() {
   sheet.querySelectorAll(".icon-btn").forEach(b => b.setAttribute("aria-label", t("close")));
   if (typeof renderRecent === "function" && $("recentList")) renderRecent();
   if ($("countryGrid")) renderCountryGrid();
-  if ($("svcTrack")) updateSlider(curSlide); // applyLang only runs after the slider is set up
+  if ($("svcTrack")) { renderDots(); updateSlider(curSlide); } // applyLang only runs after the slider is set up
   ["svcPrev:prev", "svcNext:next", "svcTrack:svcList"].forEach(p => { const [id, k] = p.split(":"); if ($(id)) $(id).setAttribute("aria-label", t(k)); });
 }
 function renderOperators() {
@@ -355,7 +357,8 @@ function renderTracker(status) {
   const at = { sending: 1, delivered: 3, failed: 2 }[status];
   $("tracker").innerHTML = steps.map(([k, label], i) => {
     const state = k === "failed" ? "failed" : i < at ? "done" : i === at ? "active" : "pending";
-    return `<li class="${state}"${state === "active" ? ' aria-current="step"' : ""}><span class="dot" aria-hidden="true"></span>${label}</li>`;
+    const icon = { done: "i-check", active: "i-clock", failed: "i-alert", pending: "i-clock" }[state];
+    return `<li class="${state}"${state === "active" ? ' aria-current="step"' : ""}><span class="bar" aria-hidden="true"></span><span class="lbl"><svg class="i" aria-hidden="true"><use href="#${icon}"/></svg>${label}</span></li>`;
   }).join("");
   $("tracker").hidden = false;
 }
@@ -527,6 +530,11 @@ function currentSlide() {
   return slides.reduce((best, s, i) => Math.abs(s.offsetLeft - track.offsetLeft - x) < Math.abs(slides[best].offsetLeft - track.offsetLeft - x) ? i : best, 0);
 }
 let curSlide = 0;
+function renderDots() {
+  $("svcDots").setAttribute("aria-label", t("chooseCard"));
+  $("svcDots").innerHTML = slides.map((s, i) => `<button type="button" class="seg-btn" data-go="${i}" aria-controls="svcTrack" aria-label="${t("showCard")(s.querySelector("h3").textContent)}"></button>`).join("");
+}
+$("svcDots").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) goSlide(+b.dataset.go - curSlide); });
 // renders the counter/buttons for slide i; with no index it reads the scroll position (swipe, trackpad)
 function updateSlider(i) {
   if (i == null) i = curSlide = currentSlide();
@@ -534,6 +542,7 @@ function updateSlider(i) {
   $("svcNote").textContent = slides[i].querySelector("h3").textContent; // mirrors the card title, already translated
   $("svcPrev").disabled = i === 0;
   $("svcNext").disabled = i === slides.length - 1;
+  document.querySelectorAll(".seg-btn").forEach((b, k) => b.setAttribute("aria-current", k === i));
 }
 function goSlide(step) {
   // step from the remembered slide, not the scroll position, so fast repeat presses each move one card

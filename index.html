@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261015000439" />
+  <link rel="stylesheet" href="styles.css?v=20261015002057" />
 </head>
 <body>
   <a class="skip" href="#quick-purchase" data-i18n="skip">Skip to purchase form</a>
@@ -157,6 +157,7 @@
         <div class="slider-side">
           <p class="count" id="svcCount" aria-live="polite"><span class="count-now">01</span><span class="count-all">/04</span></p>
           <p class="count-note" id="svcNote">Mobile credit</p>
+          <div class="seg-nav" id="svcDots" role="group" aria-label="Choose a card"></div>
           <div class="slider-nav">
             <button type="button" class="nav-btn" id="svcPrev" aria-controls="svcTrack" aria-label="Previous" disabled><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
             <button type="button" class="nav-btn nav-btn-dark" id="svcNext" aria-controls="svcTrack" aria-label="Next"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
@@ -191,10 +192,10 @@
     <section class="section alt" id="how">
       <h2 data-i18n="howH">How it works</h2>
       <ol class="steps">
-        <li><h3 data-i18n="st1h">Choose a product</h3><p data-i18n="st1p">Mobile credit, a data bundle, a gift card or a utility bill.</p></li>
-        <li><h3 data-i18n="st2h">Enter the details</h3><p data-i18n="st2p">The recipient's phone number, email, customer ID or meter number.</p></li>
-        <li><h3 data-i18n="st3h">Review and pay</h3><p data-i18n="st3p">Check the amount, provider and total, including fees, before you confirm.</p></li>
-        <li><h3 data-i18n="st4h">Get your receipt</h3><p data-i18n="st4p">Delivery status and a digital receipt arrive as soon as it's done.</p></li>
+        <li><div class="step-top"><span class="step-ico"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg></span><span class="step-num" aria-hidden="true">01</span></div><span class="seg" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span><h3 data-i18n="st1h">Choose a product</h3><p data-i18n="st1p">Mobile credit, a data bundle, a gift card or a utility bill.</p></li>
+        <li><div class="step-top"><span class="step-ico"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span class="step-num" aria-hidden="true">02</span></div><span class="seg" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span><h3 data-i18n="st2h">Enter the details</h3><p data-i18n="st2p">The recipient's phone number, email, customer ID or meter number.</p></li>
+        <li><div class="step-top"><span class="step-ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="step-num" aria-hidden="true">03</span></div><span class="seg" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><h3 data-i18n="st3h">Review and pay</h3><p data-i18n="st3p">Check the amount, provider and total, including fees, before you confirm.</p></li>
+        <li><div class="step-top"><span class="step-ico"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg></span><span class="step-num" aria-hidden="true">04</span></div><span class="seg" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><h3 data-i18n="st4h">Get your receipt</h3><p data-i18n="st4p">Delivery status and a digital receipt arrive as soon as it's done.</p></li>
       </ol>
     </section>
 
@@ -304,6 +305,6 @@
     </div>
     <p class="sr-only" id="payStatus" role="status" aria-live="polite"></p>
   </dialog>
-  <script src="app.js?v=20261015000439"></script>
+  <script src="app.js?v=20261015002057"></script>
 </body>
 </html>
