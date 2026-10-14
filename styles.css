@@ -44,7 +44,20 @@ h1 mark{white-space:nowrap;background:var(--tint);color:inherit;border-radius:99
 h2,h3{text-wrap:balance}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(360px,1fr);gap:32px;align-items:start}
 .banner{position:relative;margin:0}
-.banner img{display:block;width:100%;height:440px;object-fit:cover;object-position:50% 50%;border-radius:32px}
+.banner-media{overflow:hidden;border-radius:32px} /* clips the photo while it scales */
+.banner img{display:block;width:100%;height:440px;object-fit:cover;object-position:50% 50%}
+/* one short entrance (under 2s, so no pause control is needed); skipped entirely when motion is reduced */
+@media (prefers-reduced-motion:no-preference){
+  .banner img{animation:photo-in 1.6s cubic-bezier(.2,.7,.2,1) both;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .banner:hover img{transform:scale(1.025)}
+  .banner-tags li{animation:tag-in .6s cubic-bezier(.2,.7,.2,1) both}
+  .banner-tags li:nth-child(1){animation-delay:.55s}
+  .banner-tags li:nth-child(2){animation-delay:.68s}
+  .banner-tags li:nth-child(3){animation-delay:.81s}
+  .banner-note{animation:tag-in .7s .35s cubic-bezier(.2,.7,.2,1) both}
+}
+@keyframes photo-in{from{opacity:0;transform:scale(1.08)}}
+@keyframes tag-in{from{opacity:0;transform:translateY(10px)}}
 .banner-tags{position:absolute;top:20px;left:20px;right:20px;display:flex;flex-wrap:wrap;gap:8px}
 /* dark glass behind the tags keeps white text readable on any part of the photo */
 .banner-tags li{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(17,24,39,.68);backdrop-filter:blur(6px);color:#fff;font-size:14px;font-weight:500}
@@ -289,7 +302,8 @@ details p{padding:0 40px 20px 0;color:var(--muted);max-width:68ch}
   .hero{padding:28px var(--gutter) 48px}
   h1{text-align:left;margin:0 0 24px}
   .hero-grid{grid-template-columns:1fr;gap:24px}
-  .banner img{height:220px;border-radius:24px}
+  .banner img{height:220px}
+  .banner-media{border-radius:24px}
   .banner-note{position:static;max-width:none;padding:16px 0 0;font-size:16px}
   .banner-note::before,.banner-note::after{display:none}
   .hero-actions{margin-top:16px}
