@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airtime | Trusted Credit, Data, & Gift Cards</title>
+  <meta name="description" content="Send mobile credit, data bundles, gift cards and pay utility bills instantly, wherever you are." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20261014235929" />
+</head>
+<body>
+  <a class="skip" href="#quick-purchase" data-i18n="skip">Skip to purchase form</a>
+
+  <!-- ===== ICONS (one line set, used via <use href="#i-…">) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24"><path d="M5 20v-3M10 20v-6.5M15 20v-10M20 20V4"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5.5 12v8.5h13V12M12 8v12.5M12 8C10.5 4.5 6.5 4 6.5 6.3 6.5 8 12 8 12 8zm0 0c1.5-3.5 5.5-4 5.5-1.7C17.5 8 12 8 12 8z"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5.5 2.5h13v19l-2.6-1.6-2.2 1.6-1.7-1.6-1.7 1.6-2.2-1.6-2.6 1.6z"/><path d="M9 7.5h6M9 11h6M9 14.5h3.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 4.5 5.3v5.9c0 4.7 3.2 8.7 7.5 10.3 4.3-1.6 7.5-5.6 7.5-10.3V5.3z"/><path d="m9 12 2.2 2.2L15.2 10"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6.2l-1 8L19 10.5h-6.2z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 11.6V4.5a1 1 0 0 1 1-1h7.1l8.9 8.9-8.1 8.1z"/><circle cx="8.3" cy="8.3" r="1.4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7.2a4 4 0 0 1 8 0v3.3M12 14.5v2.5"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.5c1 3.6 5.5 5.6 5.5 10.5a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.4 2.6-5.4.2 1.7 1 2.7 2.1 3.2C11.2 7.6 11.4 5 12 2.5z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.6L3.5 20.5l1.4-4.4A8.5 8.5 0 1 1 20.5 11.5z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 7.5v6M12 17h.01"/><circle cx="12" cy="12" r="9.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="flag-ID" viewBox="0 0 30 20"><rect width="30" height="10" fill="#CE1126"/><rect y="10" width="30" height="10" fill="#fff"/></symbol>
+    <symbol id="flag-TH" viewBox="0 0 30 20"><rect width="30" height="20" fill="#A51931"/><rect y="3.33" width="30" height="13.34" fill="#F4F5F8"/><rect y="6.67" width="30" height="6.66" fill="#2D2A4A"/></symbol>
+    <symbol id="flag-VN" viewBox="0 0 30 20"><rect width="30" height="20" fill="#DA251D"/><polygon points="15.00,4.40 16.35,8.55 20.71,8.55 17.18,11.11 18.53,15.25 15.00,12.69 11.47,15.25 12.82,11.11 9.29,8.55 13.65,8.55" fill="#FFFF00"/></symbol>
+    <symbol id="flag-LA" viewBox="0 0 30 20"><rect width="30" height="20" fill="#CE1126"/><rect y="5" width="30" height="10" fill="#002868"/><circle cx="15" cy="10" r="4" fill="#fff"/></symbol>
+    <symbol id="flag-MM" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#FECB00"/><rect y="6.67" width="30" height="6.66" fill="#34B233"/><rect y="13.33" width="30" height="6.67" fill="#EA2839"/><polygon points="15.00,3.60 16.62,8.57 21.85,8.58 17.62,11.65 19.23,16.62 15.00,13.55 10.77,16.62 12.38,11.65 8.15,8.58 13.38,8.57" fill="#fff"/></symbol>
+    <symbol id="flag-KH" viewBox="0 0 30 20"><rect width="30" height="20" fill="#032EA1"/><rect y="5" width="30" height="10" fill="#E00025"/><path d="M9 13.5h12v-1h-1v-2.2h-.8V8.8h-.7V7.2h-.6V6h-.5V4.8h-.6V6h-.5v1.2h-.6v1.6h-.7v1.5h-.8V8.8h-.7V7.4h-.5V8.8h-.7v1.5H11v2.2h-1v1z" fill="#fff"/></symbol>
+    <symbol id="flag-PK" viewBox="0 0 30 20"><rect width="30" height="20" fill="#01411C"/><rect width="7.5" height="20" fill="#fff"/><circle cx="19.5" cy="10" r="5.2" fill="#fff"/><circle cx="21" cy="8.6" r="4.6" fill="#01411C"/><polygon points="24.10,5.84 23.83,7.12 24.96,7.77 23.66,7.91 23.39,9.19 22.86,8.00 21.56,8.13 22.53,7.26 22.00,6.06 23.13,6.72" fill="#fff"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  </svg>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <a class="brand" href="#top" aria-label="Airtime home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2556e8"/><stop offset="1" stop-color="#6d3ae6"/></linearGradient></defs><path d="M16 3 4 29h7l5-12 5 12h7z" fill="url(#g)"/></svg>
+      <span>Airtime</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#quick-purchase"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="navCredit">Send mobile credit</span></a>
+      <a href="#services"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg><span data-i18n="navSvc">Services</span></a>
+      <a href="https://airtime.mobi/business"><svg class="i" aria-hidden="true"><use href="#i-case"/></svg><span data-i18n="navBiz">For business</span></a>
+      <a href="#faq"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="navHelp">Help</span></a>
+    </nav>
+
+    <div class="header-right">
+      <div class="lang">
+        <button class="lang-btn" id="langBtn" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">EN</button>
+        <ul class="lang-menu" id="langMenu" hidden>
+          <li><a href="?lang=en" data-lang="en">English</a></li>
+          <li><a href="?lang=id" data-lang="id">Bahasa Indonesia</a></li>
+          <li><a href="https://airtime.mobi/lang/la" lang="lo">ລາວ</a></li>
+          <li><a href="https://airtime.mobi/lang/mm" lang="my">မြန်မာ</a></li>
+        </ul>
+      </div>
+      <a class="login" href="https://airtime.mobi/login" data-i18n="login">Member login</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== HERO + QUICK BUY ===== -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1 data-i18n="h1">Send credit and data <mark>to any number</mark>, from anywhere</h1>
+          <figure class="banner">
+            <img src="images/hero-topup.jpg" alt="" width="1536" height="1024" fetchpriority="high" />
+            <ul class="banner-tags">
+              <li><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="as1">Secure payment</span></li>
+              <li><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg><span data-i18n="as2">Fast delivery</span></li>
+              <li><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg><span data-i18n="as3">No hidden fees</span></li>
+            </ul>
+            <figcaption class="banner-note" data-i18n="lead">Top up a prepaid number in a few steps. You see the full price before you pay.</figcaption>
+          </figure>
+          <div class="hero-actions">
+            <p class="works" data-i18n="works">Works with Telkomsel, Indosat, XL, AIS, DTAC, Viettel, Jazz and 150+ other operators.</p>
+            <div class="cta">
+              <a class="btn btn-ghost" href="https://airtime.mobi/gift-cards"><span data-i18n="cta2">Explore gift cards</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="btn btn-primary" href="#quick-purchase" data-i18n="cta1">Top up now</a>
+            </div>
+          </div>
+        </div>
+        <form class="card" id="quick-purchase" autocomplete="off">
+          <div class="tabs" role="group" aria-label="Product type">
+            <button type="button" class="tab active" aria-pressed="true" data-type="credit"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="tabCredit">Credit</span></button>
+            <button type="button" class="tab" aria-pressed="false" data-type="data"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg><span data-i18n="tabData">Data</span></button>
+            <button type="button" class="tab" aria-pressed="false" data-type="gift"><svg class="i" aria-hidden="true"><use href="#i-gift"/></svg><span data-i18n="tabGift">Gift cards</span></button>
+          </div>
+
+          <div class="gift-panel" id="giftPanel" hidden>
+            <svg class="i" aria-hidden="true"><use href="#i-gift"/></svg>
+            <p data-i18n="giftText">Gift cards for gaming, entertainment and shopping brands are on our gift card page, with the price shown before you pay.</p>
+            <a class="btn btn-primary full" href="https://airtime.mobi/gift-cards"><span data-i18n="giftBtn">Browse gift cards</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <div id="topupFields">
+          <div class="recent" id="recent" hidden>
+            <p class="label" id="recentLabel" data-i18n="recentTitle">Top up again</p>
+            <ul id="recentList" aria-labelledby="recentLabel"></ul>
+            <p class="hint" data-i18n="recentNote">Saved on this device only.</p>
+          </div>
+          <label for="country" data-i18n="country">Country</label>
+          <select id="country"></select>
+
+          <label for="operator" data-i18n="operator">Operator</label>
+          <select id="operator"></select>
+
+          <label for="phone" data-i18n="phone">Phone number</label>
+          <input id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="e.g. 0812 3456 7890" data-i18n-placeholder="phonePh" aria-describedby="hint phoneErr" />
+          <p class="hint err" id="phoneErr" aria-live="polite"></p>
+          <p class="hint" id="hint" data-i18n="phoneHint">Enter the number with country code or local format.</p>
+
+          <p class="label" id="amountLabel" data-i18n="amount">Amount</p>
+          <div class="amounts" id="amounts" role="radiogroup" aria-labelledby="amountLabel"></div>
+
+          <div class="total">
+            <span data-i18n="total">Total payment</span>
+            <strong id="total">Rp 0</strong>
+          </div>
+
+          <button type="submit" class="btn btn-primary full" id="buy" disabled aria-describedby="buyHint" data-i18n="buy">Buy now</button>
+          <p class="hint center" id="buyHint" aria-live="polite">Enter the number and choose an amount to continue.</p>
+          <p class="buy-help"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="buyHelp">Need help? <a href="https://wa.me/6289655913961" target="_blank" rel="noopener">Chat on WhatsApp</a>, daily 08.00–22.00 WIB</span></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== WHAT YOU CAN DO ===== -->
+    <section class="section" id="services" aria-roledescription="carousel" aria-labelledby="svcTitle">
+      <div class="sec-head">
+        <div>
+          <span class="chip chip-soft" data-i18n="svcChip">Services</span>
+          <h2 id="svcTitle" data-i18n="svcH">Prepaid and bills in one place</h2>
+        </div>
+        <p class="sub" data-i18n="svcSub">Mobile credit, data, gift cards and utility bills, paid through one checkout.</p>
+      </div>
+      <div class="slider">
+        <div class="slider-side">
+          <p class="count" id="svcCount" aria-live="polite"><span class="count-now">01</span><span class="count-all">/04</span></p>
+          <p class="count-note" id="svcNote">Mobile credit</p>
+          <div class="slider-nav">
+            <button type="button" class="nav-btn" id="svcPrev" aria-controls="svcTrack" aria-label="Previous" disabled><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
+            <button type="button" class="nav-btn nav-btn-dark" id="svcNext" aria-controls="svcTrack" aria-label="Next"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <ul class="slides" id="svcTrack" tabindex="0" aria-label="Services">
+          <li class="slide" aria-roledescription="slide" aria-label="1 / 4">
+            <img src="images/svc-credit.jpg" alt="" width="800" height="533" loading="lazy" decoding="async" />
+            <span class="chip" data-i18n="ch1">Top-up</span>
+            <div class="slide-body"><h3 data-i18n="s1h">Mobile credit</h3><p data-i18n="s1p">Top up your own number or send credit to family and friends abroad.</p><a href="#quick-purchase" data-i18n="s1a">Send credit</a></div>
+          </li>
+          <li class="slide" aria-roledescription="slide" aria-label="2 / 4">
+            <img src="images/svc-data.jpg" alt="" width="800" height="533" loading="lazy" decoding="async" />
+            <span class="chip" data-i18n="ch2">Internet</span>
+            <div class="slide-body"><h3 data-i18n="s2h">Data bundles</h3><p data-i18n="s2p">Internet packages with the quota and validity shown up front.</p><a href="#quick-purchase" data-i18n="s2a">Buy data</a></div>
+          </li>
+          <li class="slide" aria-roledescription="slide" aria-label="3 / 4">
+            <img src="images/svc-gift.jpg" alt="" width="800" height="533" loading="lazy" decoding="async" />
+            <span class="chip" data-i18n="ch3">Vouchers</span>
+            <div class="slide-body"><h3 data-i18n="s3h">Gift cards</h3><p data-i18n="s3p">Digital codes for gaming, entertainment and shopping brands.</p><a href="https://airtime.mobi/gift-cards" data-i18n="cta2">Explore gift cards</a></div>
+          </li>
+          <li class="slide" aria-roledescription="slide" aria-label="4 / 4">
+            <img src="images/svc-bills.jpg" alt="" width="800" height="533" loading="lazy" decoding="async" />
+            <span class="chip" data-i18n="ch4">Bills</span>
+            <div class="slide-body"><h3 data-i18n="s4h">Utility bills</h3><p data-i18n="s4p">Electricity, water and gas bills. Online payment is coming soon.</p></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section alt" id="how">
+      <h2 data-i18n="howH">How it works</h2>
+      <ol class="steps">
+        <li><h3 data-i18n="st1h">Choose a product</h3><p data-i18n="st1p">Mobile credit, a data bundle, a gift card or a utility bill.</p></li>
+        <li><h3 data-i18n="st2h">Enter the details</h3><p data-i18n="st2p">The recipient's phone number, email, customer ID or meter number.</p></li>
+        <li><h3 data-i18n="st3h">Review and pay</h3><p data-i18n="st3p">Check the amount, provider and total, including fees, before you confirm.</p></li>
+        <li><h3 data-i18n="st4h">Get your receipt</h3><p data-i18n="st4p">Delivery status and a digital receipt arrive as soon as it's done.</p></li>
+      </ol>
+    </section>
+
+    <!-- ===== COVERAGE ===== -->
+    <section class="section" id="coverage">
+      <h2 data-i18n="covH">Where we deliver</h2>
+      <p class="sub" data-i18n="covSub">150+ mobile operators across these countries, with more added regularly.</p>
+
+      <div class="subtabs" role="tablist" aria-label="Coverage">
+        <button class="subtab active" role="tab" id="tab-ops" aria-selected="true" aria-controls="ops" data-pane="ops" data-i18n="tabOps">Mobile operators</button>
+        <button class="subtab" role="tab" id="tab-utils" aria-selected="false" aria-controls="utils" tabindex="-1" data-pane="utils" data-i18n="tabUtils">Utilities</button>
+      </div>
+
+      <div id="ops" class="pane" role="tabpanel" aria-labelledby="tab-ops" tabindex="0">
+        <ul class="countries" id="countryGrid"></ul>
+      </div>
+      <div id="utils" class="pane" role="tabpanel" aria-labelledby="tab-utils" tabindex="0" hidden>
+        <div class="cols three">
+          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg><h3 data-i18n="u1h">Electricity</h3><p data-i18n="u1p">Pay electricity bills or buy prepaid tokens.</p></article>
+          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg><h3 data-i18n="u2h">Water</h3><p data-i18n="u2p">Pay water bills across supported regions.</p></article>
+          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg><h3 data-i18n="u3h">Gas</h3><p data-i18n="u3p">Pay gas bills in the same checkout.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST ===== -->
+    <section class="section alt">
+      <h2 data-i18n="trH">Why people trust Airtime</h2>
+      <div class="trust">
+        <article class="item"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg><h3 data-i18n="t1h">Secure checkout</h3><p data-i18n="t1p">Payments are encrypted and processed securely.</p></article>
+        <article class="item"><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg><h3 data-i18n="t2h">Transparent pricing</h3><p data-i18n="t2p">Every admin fee is shown before you pay.</p></article>
+        <article class="item"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg><h3 data-i18n="t3h">A receipt for every purchase</h3><p data-i18n="t3p">Track each transaction and keep a digital receipt.</p></article>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section" id="faq">
+      <div class="faq-head">
+        <h2 data-i18n="faqH">Questions</h2>
+        <div class="help-card">
+          <svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>
+          <h3 data-i18n="helpT">Still need help?</h3>
+          <p data-i18n="helpP">Message us on WhatsApp with your receipt number, or email <a href="mailto:support@linkit360.co.id">support@linkit360.co.id</a>.</p>
+          <a class="btn btn-ghost" href="https://wa.me/6289655913961" target="_blank" rel="noopener" data-i18n="helpBtn">Chat on WhatsApp</a>
+          <p class="help-hours" data-i18n="hours">WhatsApp support: daily, 08.00–22.00 WIB</p>
+        </div>
+      </div>
+      <div class="faq">
+        <details><summary data-i18n="q1">Is Airtime available worldwide?</summary><p data-i18n="a1">Airtime currently supports multiple countries across Asia, with more regions and features being added.</p></details>
+        <details><summary data-i18n="q2">Can I purchase without an account?</summary><p data-i18n="a2">Yes, guest checkout is fully supported. You only need to enter your email address to receive the voucher or receipt.</p></details>
+        <details><summary data-i18n="q3">What happens if a transaction fails?</summary><p data-i18n="a3">If your payment is successful but delivery fails, our automated system will flag the transaction. Contact support and we will resolve or refund it.</p></details>
+        <details><summary data-i18n="q4">Are there any extra fees?</summary><p data-i18n="a4">No hidden fees. The total payment shown before you pay already includes all admin fees, so what you see is what you pay.</p></details>
+        <details><summary data-i18n="q5">How long until the credit or data arrives?</summary><p data-i18n="a5">Most top-ups arrive within a few minutes after payment is confirmed. If it hasn't arrived after 30 minutes, contact us on WhatsApp with your receipt.</p></details>
+        <details><summary data-i18n="q6">How do refunds work?</summary><p data-i18n="a6">If the top-up can't be delivered, you get a full refund to your original payment method. Message us on WhatsApp with your receipt number and we'll process it.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="business">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 4 29h7l5-12 5 12h7z" fill="#8fb0ff"/></svg><span>Airtime</span></a>
+        <p data-i18n="fTag">Prepaid top-ups, data bundles, utilities and digital gift cards with instant delivery.</p>
+      </div>
+      <div><h4 data-i18n="fProd">Products</h4><a href="#quick-purchase" data-i18n="fTopup">Airtime top-up</a><a href="https://airtime.mobi/business">B2B API</a></div>
+      <div><h4 data-i18n="fCo">Company</h4><a href="https://airtime.mobi/login" data-i18n="login">Member login</a><a href="https://airtime.mobi/vendor/login" data-i18n="fVendor">Vendor login</a></div>
+      <div>
+        <h4 data-i18n="fContact">Contact us</h4>
+        <p>PT LINKIT 360<br />Menara Jamsostek 9th Floor<br />Jakarta, Indonesia 12710</p>
+        <p>Email: <a href="mailto:support@linkit360.co.id">support@linkit360.co.id</a></p>
+        <p>WhatsApp: <a href="https://wa.me/6289655913961">+62 896-5591-3961</a><br /><span data-i18n="hours">WhatsApp support: daily, 08.00–22.00 WIB</span></p>
+      </div>
+    </div>
+    <p class="copy">© <span id="year"></span> Airtime. <span data-i18n="fRights">All rights reserved.</span></p>
+  </footer>
+
+  <dialog class="sheet" id="sheet" aria-labelledby="reviewTitle">
+    <div class="sheet-head">
+      <h2 id="reviewTitle" data-i18n="rvTitle">Review your order</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+
+    <div id="reviewView">
+      <dl class="summary">
+        <div><dt data-i18n="rvProduct">Product</dt><dd id="rvProduct"></dd></div>
+        <div><dt data-i18n="operator">Operator</dt><dd id="rvOperator"></dd></div>
+        <div><dt data-i18n="phone">Phone number</dt><dd id="rvPhone"></dd></div>
+        <div><dt data-i18n="rvGets">Recipient gets</dt><dd id="rvGets"></dd></div>
+        <div><dt data-i18n="rvFee">Admin fee</dt><dd id="rvFee"></dd></div>
+        <div class="sum-total"><dt data-i18n="total">Total payment</dt><dd id="rvTotal"></dd></div>
+      </dl>
+      <p class="sheet-note"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="rvNote">Check the number carefully before you pay. The total already includes all fees.</span></p>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" data-close data-i18n="rvEdit">Edit order</button>
+        <button type="button" class="btn btn-primary" id="payBtn"><span class="spinner" aria-hidden="true"></span><span id="payLabel" data-i18n="rvPay">Confirm and pay</span></button>
+      </div>
+    </div>
+
+    <div id="resultView" class="result" hidden>
+      <div class="result-icon" id="resultIcon"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+      <h2 id="resultTitle" tabindex="-1"></h2>
+      <p id="resultText"></p>
+      <p class="result-ref" id="resultRef" hidden></p>
+      <ol class="tracker" id="tracker" hidden></ol>
+      <div class="sheet-actions" id="resultActions"></div>
+    </div>
+    <p class="sr-only" id="payStatus" role="status" aria-live="polite"></p>
+  </dialog>
+  <script src="app.js?v=20261014235929"></script>
+</body>
+</html>
