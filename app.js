@@ -49,7 +49,7 @@ const STRINGS = {
     langLabel: "Language: English", openMenu: "Open menu", closeMenu: "Close menu",
     prev: "Previous", next: "Next", svcList: "Services",
     opLabel: (name, t) => `${name} ${t === "credit" ? "Credit" : "Data"}`,
-    creditItem: (op, face) => `${op.name} ${face.toLocaleString("en-US")}`,
+    creditItem: (op, face) => `${op.name} ${face}`, feeLine: f => `Includes admin fee ${f}`,
     dataItem: (op, name) => `${op.name} ${name}`,
     close: "Close", processing: "Processing payment…",
     okTitle: "Top-up on its way", okText: (name, phone) => `${name} is being sent to ${phone}. Most top-ups arrive within a few minutes.`,
@@ -58,7 +58,7 @@ const STRINGS = {
     failRetry: "Try again", failHelp: "Chat on WhatsApp",
     failText: "We couldn't complete this payment. Try again. If you were charged, chat with us on WhatsApp and we'll refund it.",
     chooseCard: "Choose a card", showCard: n => `Show ${n}`,
-    getsCredit: v => `${v} credit`, feeIncl: "Included in total", countryName: {}, ccGo: "Top up", ccAria: c => `Top up a number in ${c}`,
+    getsCredit: v => `${v} credit`, countryName: {}, ccGo: "Top up", ccAria: c => `Top up a number in ${c}`,
     recentRemove: n => `Remove ${n}`, recentGo: (op, n) => `Top up ${op} ${n} again`,
     orderRef: r => `Order ${r}`, trackPaid: "Payment received", trackSending: "Sending to operator", trackDone: "Delivered", trackFailed: "Delivery failed",
     deliveredTitle: "Top-up delivered", deliveredText: (name, phone) => `${name} has arrived on ${phone}.`,
@@ -103,7 +103,7 @@ const STRINGS = {
     tabOps: "Operator seluler", tabUtils: "Tagihan", countryName: { KH: "Kamboja" }, ccGo: "Isi ulang", ccAria: c => `Isi ulang nomor di ${c}`,
     u1h: "Listrik", u1p: "Bayar tagihan listrik atau beli token listrik prabayar.",
     u2h: "Air", u2p: "Bayar tagihan air di wilayah yang didukung.",
-    u3h: "Gas", u3p: "Bayar tagihan gas di checkout yang sama.",
+    u3h: "Gas", u3p: "Bayar tagihan gas di checkout yang sama.", soon: "Segera hadir",
     trH: "Kenapa orang percaya Airtime",
     t1h: "Checkout aman", t1p: "Pembayaran dienkripsi dan diproses dengan aman.",
     t2h: "Harga transparan", t2p: "Semua biaya admin ditampilkan sebelum Anda bayar.",
@@ -121,7 +121,7 @@ const STRINGS = {
     fProd: "Produk", fTopup: "Isi ulang Airtime", fCo: "Perusahaan", fVendor: "Masuk vendor", fContact: "Hubungi kami",
     fRights: "Hak cipta dilindungi.",
     opLabel: (name, t) => `${t === "credit" ? "Pulsa" : "Kuota"} ${name}`,
-    creditItem: (op, face) => `Pulsa ${op.name} ${face.toLocaleString("id-ID")}`,
+    creditItem: (op, face) => `Pulsa ${op.name} ${face}`, feeLine: f => `Sudah termasuk biaya admin ${f}`,
     dataItem: (op, name) => `${op.name} ${name.replace(/^Data/, "Kuota").replace(/(\d+)d$/, "$1 hari")}`,
     rvTitle: "Periksa pesanan", rvProduct: "Produk", rvEdit: "Ubah pesanan", rvPay: "Konfirmasi & bayar",
     rvNote: "Pastikan nomor tujuan sudah benar sebelum membayar. Total sudah termasuk semua biaya.",
@@ -130,7 +130,7 @@ const STRINGS = {
     okDone: "Selesai", okAgain: "Isi nomor lain",
     failTitle: "Pembayaran belum berhasil", failText: "Pembayaran ini belum bisa diselesaikan. Coba lagi. Kalau saldo Anda sudah terpotong, chat kami di WhatsApp dan dananya akan kami kembalikan.",
     chooseCard: "Pilih kartu", showCard: n => `Tampilkan ${n}`,
-    rvGets: "Diterima", rvFee: "Biaya admin", getsCredit: v => `Pulsa ${v}`, feeIncl: "Sudah termasuk di total",
+    rvGets: "Diterima", rvFee: "Biaya admin", rvPrice: "Harga produk", getsCredit: v => `Pulsa ${v}`,
     recentTitle: "Isi ulang lagi", recentNote: "Hanya tersimpan di perangkat ini.", recentRemove: n => `Hapus ${n}`, recentGo: (op, n) => `Isi ulang ${op} ${n} lagi`,
     orderRef: r => `Pesanan ${r}`, trackPaid: "Pembayaran diterima", trackSending: "Dikirim ke operator", trackDone: "Terkirim", trackFailed: "Gagal terkirim",
     deliveredTitle: "Isi ulang sudah masuk", deliveredText: (name, phone) => `${name} sudah masuk ke ${phone}.`,
@@ -144,7 +144,11 @@ const STRINGS = {
 
 // ===== State =====
 const $ = id => document.getElementById(id);
-const rp = n => "Rp " + n.toLocaleString("id-ID");
+// one money format everywhere: Indonesian grouping ("10.000"); rupiah as "Rp", other currencies by code
+const money = (n, cur = "IDR") => (cur === "IDR" ? "Rp" : cur) + "\u00a0" + n.toLocaleString("id-ID"); // no-break space keeps "Rp 10.000" on one line
+const rp = n => money(n);
+// TODO: placeholder admin fee until the pricing API returns one per product
+const DEFAULT_FEE = 2500;
 let type = "credit", selected = null, lastDetected = "", detectedOp = null, phoneTouched = false;
 
 function storage(key, val) {
@@ -250,11 +254,12 @@ function renderOperators() {
 function currentOp() { return OPERATORS.find(o => o.id === $("operator").value); }
 function items() {
   const op = currentOp(); if (!op) return [];
-  // fee: optional admin fee in IDR from the pricing data; the price already includes it
-  const fee = (op.fees && op.fees[type]) || [];
-  if (type === "credit") return op.credit.map(([face, price], i) => ({ name: t("creditItem")(op, face).replace(/\s+/g, " "), price, fee: fee[i],
-    gets: t("getsCredit")(`${COUNTRIES[op.c].cur} ${face.toLocaleString(lang === "id" ? "id-ID" : "en-US")}`) }));
-  return op.data.map(([name, price], i) => ({ name: t("dataItem")(op, name), price, fee: fee[i], gets: t("dataItem")({ name: "" }, name).trim() }));
+  // admin fee in IDR, already inside the price. Rupiah credit: price minus face value; otherwise from the pricing data
+  const cur = COUNTRIES[op.c].cur, fees = (op.fees && op.fees[type]) || [];
+  const feeOf = (i, price, face) => fees[i] ?? (type === "credit" && cur === "IDR" ? price - face : DEFAULT_FEE);
+  if (type === "credit") return op.credit.map(([face, price], i) => ({ name: t("creditItem")(op, money(face, cur)), price, fee: feeOf(i, price, face),
+    gets: t("getsCredit")(money(face, cur)) }));
+  return op.data.map(([name, price], i) => ({ name: t("dataItem")(op, name), price, fee: feeOf(i, price), gets: t("dataItem")({ name: "" }, name).trim() }));
 }
 function renderAmounts() {
   selected = null;
@@ -265,6 +270,7 @@ function renderAmounts() {
 function update() {
   const list = items();
   $("total").textContent = selected !== null ? rp(list[selected].price) : "Rp 0";
+  $("feeLine").textContent = selected !== null ? t("feeLine")(rp(list[selected].fee)) : "";
   const digits = $("phone").value.replace(/\D/g, "");
   const okPhone = digits.length >= 8 && digits.length <= 15;
   const ready = okPhone && selected !== null;
@@ -345,7 +351,8 @@ function openReview() {
   $("rvOperator").textContent = op.name;
   $("rvPhone").textContent = order.phone;
   $("rvGets").textContent = it.gets;
-  $("rvFee").textContent = it.fee != null ? rp(it.fee) : t("feeIncl");
+  $("rvPrice").textContent = rp(it.price - it.fee);
+  $("rvFee").textContent = rp(it.fee);
   $("rvTotal").textContent = rp(it.price);
   showView("review");
   if (!sheet.open) { sheet.showModal(); history.pushState({ sheet: 1 }, ""); }
@@ -417,7 +424,7 @@ const maskPhone = p => p.length > 7 ? `${p.slice(0, 4)} •••• ${p.slice(-
 function recentItem(r) {
   const op = OPERATORS.find(o => o.id === r.op); if (!op) return null;
   const row = (r.type === "credit" ? op.credit : op.data)[r.idx]; if (!row) return null;
-  const name = r.type === "credit" ? t("creditItem")(op, row[0]).replace(/\s+/g, " ") : t("dataItem")(op, row[0]);
+  const name = r.type === "credit" ? t("creditItem")(op, money(row[0], COUNTRIES[op.c].cur)) : t("dataItem")(op, row[0]);
   return { op, name, price: row[1] };
 }
 function renderRecent() {

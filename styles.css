@@ -63,10 +63,7 @@ h2,h3{text-wrap:balance}
 .banner-tags li{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(17,24,39,.68);backdrop-filter:blur(6px);color:#fff;font-size:14px;font-weight:500}
 .banner-tags .i{width:16px;height:16px}
 /* caption cut into the bottom-left corner of the photo */
-.banner-note{position:absolute;left:0;bottom:0;max-width:min(360px,62%);padding:20px 24px 0 0;background:var(--paper);border-top-right-radius:28px;font-size:17px;line-height:1.5;color:#3a4456}
-.banner-note::before,.banner-note::after{content:"";position:absolute;width:28px;height:28px;background:radial-gradient(circle at 100% 0,transparent 27.5px,var(--paper) 28px)}
-.banner-note::before{left:0;top:-28px}
-.banner-note::after{right:-28px;bottom:0}
+.banner-note{max-width:44ch;padding-top:18px;font-size:17px;line-height:1.5;color:#3a4456}
 .hero-actions{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:28px}
 .works{font-size:15px;color:var(--muted);max-width:40ch}
 .cta{display:flex;gap:10px;flex-wrap:wrap}
@@ -108,6 +105,9 @@ input.bad{border-color:#c0392b}
 .total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--line-soft);padding-top:16px;margin:20px 0 16px}
 .total span{color:var(--muted);font-size:15px}
 .total strong{font-size:26px;font-weight:600;letter-spacing:-.01em}
+.total:has(+ .fee-line:not(:empty)){margin-bottom:4px}
+.fee-line{margin:0 0 16px;text-align:right;font-size:14px;color:var(--muted)}
+.fee-line:empty{display:none}
 
 /* sections */
 .section{padding:88px var(--gutter)}
@@ -198,7 +198,14 @@ h2{font-size:clamp(28px,3.2vw,38px);letter-spacing:-.025em;margin-bottom:12px}
 #quick-purchase.flash{animation:flash 1.2s ease-out}
 @keyframes flash{0%{box-shadow:0 0 0 0 rgba(37,86,232,.55)}100%{box-shadow:0 0 0 18px rgba(37,86,232,0)}}
 @media (prefers-reduced-motion:reduce){.cc:hover,.cc:has(.cc-go:focus-visible){transform:none}#quick-purchase.flash{animation:none}}
-#utils .cols{margin-top:32px}
+/* utilities: same card shell as countries, not clickable yet */
+.uc:hover{transform:none;border-color:var(--line-soft);box-shadow:none}
+.uc-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--tint);color:var(--brand)}
+.uc-ico .i{width:22px;height:22px}
+.uc-soon{padding:4px 10px;border-radius:999px;background:var(--bg);font-size:14px;font-weight:500;color:#3a4456}
+.uc .cc-ops{margin-bottom:0}
+.countries.utils{grid-template-columns:repeat(3,1fr)}
+.uc-soon{white-space:nowrap}
 .trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;background:var(--bg);border:1px solid var(--line-soft);border-radius:16px}
 .trust .item{border-top:0;padding:28px}
 .trust .item+.item{border-left:1px solid var(--line-soft)}
@@ -283,6 +290,7 @@ details p{padding:0 40px 20px 0;color:var(--muted);max-width:68ch}
 .result .result-ref{margin:-12px auto 18px;font-size:14px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
 /* order tracker: done / active / pending / failed shown by icon + text, not colour alone */
 /* order tracker: one bar segment per step; state is also given by the icon + text, not colour alone */
+.tracker[hidden]{display:none}
 .tracker{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 22px;padding:16px 14px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--muted);text-align:left}
 .tracker li{display:flex;flex-direction:column;gap:10px}
 .tracker .bar{height:6px;border-radius:999px;background:var(--line-soft);overflow:hidden}
@@ -320,11 +328,10 @@ details p{padding:0 40px 20px 0;color:var(--muted);max-width:68ch}
 @media(max-width:900px){
   .hero{padding:28px var(--gutter) 48px}
   h1{text-align:left;margin:0 0 24px}
-  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:24px}
   .banner img{height:220px}
   .banner-media{border-radius:24px}
-  .banner-note{position:static;max-width:none;padding:16px 0 0;font-size:16px}
-  .banner-note::before,.banner-note::after{display:none}
+  .banner-note{max-width:none;padding-top:16px;font-size:16px}
   .hero-actions{margin-top:16px}
   .works,.cta .btn-primary{display:none} /* keep the form near the top on phones; the form is right below */
   .burger{display:grid}
@@ -349,9 +356,24 @@ details p{padding:0 40px 20px 0;color:var(--muted);max-width:68ch}
   .cols.four,.steps,.foot-grid{grid-template-columns:1fr}
   .cols,.steps{gap:28px}
   .countries{grid-template-columns:1fr 1fr;gap:10px}
+  .countries.utils{grid-template-columns:1fr}
   .cc{padding:16px}
   .flag{width:36px;height:36px}
   .cc-name{font-size:17px}
+}
+/* small phones (375 and below, down to 320 for WCAG 1.4.10 reflow) */
+@media(max-width:400px){
+  h1{font-size:32px}
+  .card{padding:18px}
+  .tab{gap:4px;padding:10px 4px;font-size:14px}
+  .amt{padding:10px 12px}
+  .countries{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media(max-width:340px){
+  .tab .i{display:none}
+  h1{font-size:29px}
+  h1 mark{white-space:normal}
+  .amounts,.countries{grid-template-columns:minmax(0,1fr)}
 }
 
 /* Windows High Contrast / forced colours: keep states that rely on fills visible */

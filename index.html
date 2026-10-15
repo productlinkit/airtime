@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261015002057" />
+  <link rel="stylesheet" href="styles.css?v=1792033773" />
 </head>
 <body>
   <a class="skip" href="#quick-purchase" data-i18n="skip">Skip to purchase form</a>
@@ -135,6 +135,7 @@
             <span data-i18n="total">Total payment</span>
             <strong id="total">Rp 0</strong>
           </div>
+          <p class="fee-line" id="feeLine"></p>
 
           <button type="submit" class="btn btn-primary full" id="buy" disabled aria-describedby="buyHint" data-i18n="buy">Buy now</button>
           <p class="hint center" id="buyHint" aria-live="polite">Enter the number and choose an amount to continue.</p>
@@ -213,11 +214,11 @@
         <ul class="countries" id="countryGrid"></ul>
       </div>
       <div id="utils" class="pane" role="tabpanel" aria-labelledby="tab-utils" tabindex="0" hidden>
-        <div class="cols three">
-          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg><h3 data-i18n="u1h">Electricity</h3><p data-i18n="u1p">Pay electricity bills or buy prepaid tokens.</p></article>
-          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg><h3 data-i18n="u2h">Water</h3><p data-i18n="u2p">Pay water bills across supported regions.</p></article>
-          <article class="item"><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg><h3 data-i18n="u3h">Gas</h3><p data-i18n="u3p">Pay gas bills in the same checkout.</p></article>
-        </div>
+        <ul class="countries utils">
+          <li class="cc uc"><div class="cc-top"><span class="uc-ico"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg></span><span class="uc-soon" data-i18n="soon">Coming soon</span></div><h3 class="cc-name" data-i18n="u1h">Electricity</h3><p class="cc-ops" data-i18n="u1p">Pay electricity bills or buy prepaid tokens.</p></li>
+          <li class="cc uc"><div class="cc-top"><span class="uc-ico"><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg></span><span class="uc-soon" data-i18n="soon">Coming soon</span></div><h3 class="cc-name" data-i18n="u2h">Water</h3><p class="cc-ops" data-i18n="u2p">Pay water bills across supported regions.</p></li>
+          <li class="cc uc"><div class="cc-top"><span class="uc-ico"><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg></span><span class="uc-soon" data-i18n="soon">Coming soon</span></div><h3 class="cc-name" data-i18n="u3h">Gas</h3><p class="cc-ops" data-i18n="u3p">Pay gas bills in the same checkout.</p></li>
+        </ul>
       </div>
     </section>
 
@@ -285,6 +286,7 @@
         <div><dt data-i18n="operator">Operator</dt><dd id="rvOperator"></dd></div>
         <div><dt data-i18n="phone">Phone number</dt><dd id="rvPhone"></dd></div>
         <div><dt data-i18n="rvGets">Recipient gets</dt><dd id="rvGets"></dd></div>
+        <div><dt data-i18n="rvPrice">Product price</dt><dd id="rvPrice"></dd></div>
         <div><dt data-i18n="rvFee">Admin fee</dt><dd id="rvFee"></dd></div>
         <div class="sum-total"><dt data-i18n="total">Total payment</dt><dd id="rvTotal"></dd></div>
       </dl>
@@ -305,6 +307,6 @@
     </div>
     <p class="sr-only" id="payStatus" role="status" aria-live="polite"></p>
   </dialog>
-  <script src="app.js?v=20261015002057"></script>
+  <script src="app.js?v=1792033328"></script>
 </body>
 </html>
